@@ -10,5 +10,9 @@ repositories {
 }
 
 dependencies {
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
+
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
