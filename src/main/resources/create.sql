@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS "User";
-CREATE TABLE "User"
+DROP TABLE IF EXISTS User;
+CREATE TABLE User
 (
   id        BIGINT NOT NULL,
   username  VARCHAR(16),
@@ -16,5 +16,5 @@ CREATE TABLE Tags
   name    VARCHAR(32),
   user_id BIGINT NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (user_id) REFERENCES "User"
+  FOREIGN KEY (user_id) REFERENCES User (id)
 );

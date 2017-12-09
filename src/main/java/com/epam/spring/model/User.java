@@ -1,7 +1,8 @@
 package com.epam.spring.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -22,21 +23,20 @@ public class User {
     @Column(name = "is_active")
     private boolean isActive;
 
-
     @OneToMany(mappedBy = "user",
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Tags> tags;
+    private Set<Tags> tags;
 
     public User() {
     }
 
-    public User(String userName, String email, String password, boolean isActive, List<Tags> tags) {
+    public User(String userName, String email, String password, boolean isActive) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.isActive = isActive;
-        this.tags = tags;
     }
 
     public Long getId() {
@@ -55,11 +55,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Tags> getTags() {
+    public Set<Tags> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tags> tags) {
+    public void setTags(Set<Tags> tags) {
         this.tags = tags;
     }
 
@@ -91,27 +91,27 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        if (isActive() != user.isActive()) return false;
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
-        if (getUserName() != null ? !getUserName().equals(user.getUserName()) : user.getUserName() != null)
-            return false;
-        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        return getTags() != null ? getTags().equals(user.getTags()) : user.getTags() == null;
+        return isActive() == user.isActive() &&
+                Objects.equals(getId(), user.getId()) &&
+                Objects.equals(getUserName(), user.getUserName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getPassword(), user.getPassword());
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUserName() != null ? getUserName().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (isActive() ? 1 : 0);
-        result = 31 * result + (getTags() != null ? getTags().hashCode() : 0);
-        return result;
+        return Objects.hash(getId(), getUserName(), getEmail(), getPassword(), isActive());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 }

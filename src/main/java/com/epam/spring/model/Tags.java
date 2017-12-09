@@ -1,6 +1,7 @@
 package com.epam.spring.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Tags")
@@ -10,8 +11,8 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "name")
@@ -21,7 +22,8 @@ public class Tags {
     }
 
 
-    public Tags(String name) {
+    public Tags(User user, String name) {
+        this.user = user;
         this.name = name;
     }
 
@@ -53,19 +55,21 @@ public class Tags {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Tags tags = (Tags) o;
-
-        if (getId() != null ? !getId().equals(tags.getId()) : tags.getId() != null) return false;
-        if (getUser() != null ? !getUser().equals(tags.getUser()) : tags.getUser() != null) return false;
-        return getName() != null ? getName().equals(tags.getName()) : tags.getName() == null;
+        return Objects.equals(getId(), tags.getId()) &&
+                Objects.equals(getName(), tags.getName());
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
+        return Objects.hash(getId(), getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Tags{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
