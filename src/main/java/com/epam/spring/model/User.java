@@ -16,6 +16,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "is_active")
     private boolean isActive;
 
@@ -28,9 +31,10 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String email, boolean isActive, List<Tags> tags) {
+    public User(String userName, String email, String password, boolean isActive, List<Tags> tags) {
         this.userName = userName;
         this.email = email;
+        this.password = password;
         this.isActive = isActive;
         this.tags = tags;
     }
@@ -41,6 +45,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public List<Tags> getTags() {
@@ -83,18 +95,23 @@ public class User {
         User user = (User) o;
 
         if (isActive() != user.isActive()) return false;
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
         if (getUserName() != null ? !getUserName().equals(user.getUserName()) : user.getUserName() != null)
             return false;
-        return getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() == null;
+        if (getEmail() != null ? !getEmail().equals(user.getEmail()) : user.getEmail() != null) return false;
+        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
+            return false;
+        return getTags() != null ? getTags().equals(user.getTags()) : user.getTags() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getUserName() != null ? getUserName().hashCode() : 0);
         result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
         result = 31 * result + (isActive() ? 1 : 0);
+        result = 31 * result + (getTags() != null ? getTags().hashCode() : 0);
         return result;
     }
 }
