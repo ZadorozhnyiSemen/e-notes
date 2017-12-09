@@ -2,8 +2,9 @@ DROP TABLE IF EXISTS "User";
 CREATE TABLE "User"
 (
   id        BIGINT NOT NULL,
-  username VARCHAR(16),
-  email VARCHAR(32),
+  username  VARCHAR(16),
+  email     VARCHAR(32),
+  password  VARCHAR(32),
   is_active BOOLEAN,
   PRIMARY KEY (id)
 );
