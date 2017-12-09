@@ -6,5 +6,3 @@ CREATE TABLE User
   is_active BOOLEAN,
   PRIMARY KEY (id)
 );
-
-INSERT INTO User (username, email, is_active) VALUES ('Semen', 'seemz@mail.ru', TRUE);
