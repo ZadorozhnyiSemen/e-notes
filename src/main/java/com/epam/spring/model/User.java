@@ -1,6 +1,7 @@
 package com.epam.spring.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -17,6 +18,38 @@ public class User {
 
     @Column(name = "is_active")
     private boolean isActive;
+
+
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Tags> tags;
+
+    public User() {
+    }
+
+    public User(String userName, String email, boolean isActive, List<Tags> tags) {
+        this.userName = userName;
+        this.email = email;
+        this.isActive = isActive;
+        this.tags = tags;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tags> tags) {
+        this.tags = tags;
+    }
 
     public String getUserName() {
         return userName;
