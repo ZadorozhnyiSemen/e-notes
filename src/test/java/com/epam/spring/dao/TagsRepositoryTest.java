@@ -59,6 +59,7 @@ public class TagsRepositoryTest {
     }
 
     @Test
+    //TODO involve user_id (future stages)
     public void testGetTagByName() throws Exception {
         String tagName = "My new tag";
         Tags firstTag = new Tags(null, tagName);
