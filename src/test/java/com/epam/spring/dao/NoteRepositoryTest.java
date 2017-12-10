@@ -63,7 +63,7 @@ public class NoteRepositoryTest {
         Note secondNote = new Note(noteTitle, noteContent, null);
         noteRepository.save(secondNote);
 
-        List<Note> list = noteRepository.getAllByName(noteTitle);
+        List<Note> list = noteRepository.getAllByTitle(noteTitle);
 
         assertEquals(2, list.size());
         assertEquals(noteTitle, list.get(0).getTitle());

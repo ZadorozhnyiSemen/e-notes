@@ -21,7 +21,7 @@ public class NoteService {
         noteRepository.deleteById(id);
     }
 
-    List<Note> getAllByName(String name) {
-        return noteRepository.getAllByName(name);
+    List<Note> getAllByTitle(String title) {
+        return noteRepository.getAllByTitle(title);
     }
 }

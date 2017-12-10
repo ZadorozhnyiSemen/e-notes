@@ -16,5 +16,5 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     void deleteById(Long id);
 
     @Query("select n from Note n where n.title = ?1")
-    List<Note> getAllByName(String name);
+    List<Note> getAllByTitle(String title);
 }
