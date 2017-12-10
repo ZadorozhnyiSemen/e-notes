@@ -23,11 +23,11 @@ public class User {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tags> tags;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notebook> notebooks;
 
     public User() {
     }
@@ -61,6 +61,14 @@ public class User {
 
     public void setTags(List<Tags> tags) {
         this.tags = tags;
+    }
+
+    public List<Notebook> getNotebooks() {
+        return notebooks;
+    }
+
+    public void setNotebooks(List<Notebook> notebooks) {
+        this.notebooks = notebooks;
     }
 
     public String getUserName() {

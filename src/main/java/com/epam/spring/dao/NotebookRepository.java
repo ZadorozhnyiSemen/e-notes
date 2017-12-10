@@ -1,0 +1,19 @@
+package com.epam.spring.dao;
+
+import com.epam.spring.model.Notebook;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+public interface NotebookRepository extends JpaRepository<Notebook, Long> {
+
+    @Query("select n from Notebook n where n.id = ?1")
+    Notebook getById(Long id);
+
+    @Modifying
+    @Query("delete from Notebook as n where n.id = ?1")
+    void deleteById(Long id);
+
+    @Query("select n from Notebook n where n.name = ?1")
+    void findByName(String name);
+}

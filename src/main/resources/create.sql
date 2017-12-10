@@ -18,3 +18,13 @@ CREATE TABLE Tags
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES User (id)
 );
+
+DROP TABLE IF EXISTS Notebook;
+CREATE TABLE Notebook
+(
+  id      BIGINT NOT NULL,
+  name    VARCHAR(64),
+  user_id BIGINT,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES User (id)
+)
