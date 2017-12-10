@@ -25,7 +25,7 @@ public class NoteServiceImplTest {
     NoteRepository noteRepository;
 
     @InjectMocks
-    NoteService noteService;
+    NoteService noteService = new NoteServiceImpl();
 
     @Before
     public void setUp() throws Exception {

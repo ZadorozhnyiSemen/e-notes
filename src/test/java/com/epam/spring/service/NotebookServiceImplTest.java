@@ -25,7 +25,7 @@ public class NotebookServiceImplTest {
     NotebookRepository notebookRepository;
 
     @InjectMocks
-    NotebookService notebookService;
+    NotebookService notebookService = new NotebookServiceImpl();
 
     @Before
     public void setUp() throws Exception {

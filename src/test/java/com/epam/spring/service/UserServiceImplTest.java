@@ -23,7 +23,7 @@ public class UserServiceImplTest {
     UserRepository userRepository;
 
     @InjectMocks
-    UserService userService;
+    UserService userService = new UserServiceImpl();
 
     @Before
     public void setUp() throws Exception {

@@ -25,7 +25,7 @@ public class TagsServiceImplTest {
     TagsRepository tagsRepository;
 
     @InjectMocks
-    TagsService tagsService;
+    TagsService tagsService = new TagsServiceImpl();
 
     @Before
     public void setUp() throws Exception {
