@@ -14,7 +14,7 @@ CREATE TABLE Tags
 (
   id      BIGINT NOT NULL,
   name    VARCHAR(32),
-  user_id BIGINT NOT NULL,
+  user_id BIGINT,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES User (id)
 );

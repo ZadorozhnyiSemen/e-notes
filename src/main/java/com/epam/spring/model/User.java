@@ -24,7 +24,7 @@ public class User {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "user",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<Tags> tags;
