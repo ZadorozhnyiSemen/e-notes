@@ -1,6 +1,7 @@
 package com.epam.spring.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,16 +12,19 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "name")
+    private String name;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "name")
-    private String name;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "note_id")
+    private List<Note> notes;
 
     public Tags() {
     }
-
 
     public Tags(User user, String name) {
         this.user = user;
@@ -49,6 +53,14 @@ public class Tags {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
     }
 
     @Override
