@@ -11,25 +11,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
 public class UserRepositoryTest {
 
+    private static final String TAG_NAME = "Awesome tag";
+
     @Autowired
     UserRepository userRepository;
 
     private User expected;
+    private Tags tag;
 
     @Before
     public void setUp() throws Exception {
-        Set<Tags> tags = new HashSet<>();
+        List<Tags> tags = new ArrayList<>();
         User user = new User("Andrey", "andrey@epam.com", "qwerty", true);
-        tags.add(new Tags(user, "awsm tag"));
+        tag = new Tags(user, TAG_NAME);
+        tags.add(tag);
         user.setTags(tags);
         expected = userRepository.save(user);
     }
@@ -42,9 +47,9 @@ public class UserRepositoryTest {
     @Test
     public void testFindUserByUsernameAndPasswordGetsUser() throws Exception {
         User actual = userRepository.findByUserNameAndPassword("Andrey", "qwerty");
-        System.out.println(actual);
-        System.out.println(expected);
         assertEquals(expected, actual);
+        assertTrue("User don't have tag", !expected.getTags().isEmpty());
+        assertTrue(expected.getTags().get(0).getName().equals(TAG_NAME));
     }
 
     @Test

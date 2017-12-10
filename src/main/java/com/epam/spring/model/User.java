@@ -1,8 +1,8 @@
 package com.epam.spring.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "User")
@@ -21,13 +21,13 @@ public class User {
     private String password;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "user",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Set<Tags> tags;
+    private List<Tags> tags;
 
     public User() {
     }
@@ -55,11 +55,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Tags> getTags() {
+    public List<Tags> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tags> tags) {
+    public void setTags(List<Tags> tags) {
         this.tags = tags;
     }
 
