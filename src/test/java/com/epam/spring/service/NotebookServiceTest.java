@@ -40,7 +40,7 @@ public class NotebookServiceTest {
     }
 
     @Test
-    public void getById() throws Exception {
+    public void testGetById() throws Exception {
         Notebook actual = notebookService.getById(1L);
 
         verify(notebookRepository, times(1)).getById(anyLong());
@@ -48,7 +48,7 @@ public class NotebookServiceTest {
     }
 
     @Test
-    public void findByName() throws Exception {
+    public void testFindByName() throws Exception {
         List<Notebook> actualList = notebookService.findByName("notebook1");
 
         verify(notebookRepository, times(1)).findByName(anyString());
