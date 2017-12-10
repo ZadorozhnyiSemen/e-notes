@@ -19,7 +19,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NotebookServiceTest {
+public class NotebookServiceImplTest {
 
     @Mock
     NotebookRepository notebookRepository;

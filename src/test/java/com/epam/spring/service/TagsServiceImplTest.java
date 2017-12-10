@@ -19,7 +19,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TagsServiceTest {
+public class TagsServiceImplTest {
 
     @Mock
     TagsRepository tagsRepository;
@@ -49,7 +49,7 @@ public class TagsServiceTest {
 
     @Test
     public void testGetAllByName() throws Exception {
-        List<Tags> actualList = tagsService.getAllByName("tagname");
+        List<Tags> actualList = tagsService.findByName("tagname");
 
         verify(tagsRepository, times(1)).getAllByName(anyString());
         assertNotNull(actualList);
