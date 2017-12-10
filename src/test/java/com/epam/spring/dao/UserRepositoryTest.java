@@ -56,4 +56,16 @@ public class UserRepositoryTest {
     public void testRepoSavesUser() throws Exception {
         assertEquals(1, userRepository.count());
     }
+
+    @Test
+    public void testGetAll() throws Exception {
+        User user = new User("Semen", "semen@epam.com", "qwerty", true);
+        userRepository.save(user);
+
+        List<User> actual = userRepository.getAll();
+
+        assertEquals(2, actual.size());
+        assertEquals("Andrey", actual.get(0).getUserName());
+        assertEquals("Semen", actual.get(1).getUserName());
+    }
 }
