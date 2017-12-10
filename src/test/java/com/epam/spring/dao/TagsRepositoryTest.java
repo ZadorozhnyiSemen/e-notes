@@ -3,7 +3,6 @@ package com.epam.spring.dao;
 import com.epam.spring.config.AppConfig;
 import com.epam.spring.model.Tags;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +19,9 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(classes = AppConfig.class)
 public class TagsRepositoryTest {
 
+    private final String tagName = "My new tag";
     @Autowired
     TagsRepository tagsRepository;
-
-    @Before
-    public void setUp() throws Exception {
-        /*User user = new User("Semen", "semen@mail.ru", "somepass", true);
-        Tags tags = new Tags(user, "My new tag");
-
-        tagsRepository.save(tags);*/
-    }
 
     @After
     public void tearDown() throws Exception {
@@ -38,7 +30,7 @@ public class TagsRepositoryTest {
 
     @Test
     public void testCreateTag() throws Exception {
-        Tags tags = new Tags(null, "My new tag");
+        Tags tags = new Tags(null, tagName);
 
         Tags expected = tagsRepository.save(tags);
 
@@ -49,7 +41,7 @@ public class TagsRepositoryTest {
 
     @Test
     public void testDeleteTag() throws Exception {
-        Tags tags = new Tags(null, "My new tag");
+        Tags tags = new Tags(null, tagName);
 
         Tags expected = tagsRepository.save(tags);
 
@@ -61,7 +53,7 @@ public class TagsRepositoryTest {
     @Test
     //TODO involve user_id (future stages)
     public void testGetTagByName() throws Exception {
-        String tagName = "My new tag";
+        String tagName = this.tagName;
         Tags firstTag = new Tags(null, tagName);
         Tags secondTag = new Tags(null, tagName);
 

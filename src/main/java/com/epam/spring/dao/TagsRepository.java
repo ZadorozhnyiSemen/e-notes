@@ -18,5 +18,4 @@ public interface TagsRepository extends JpaRepository<Tags, Long> {
 
     @Query("select t from Tags t where t.name = ?1")
     List<Tags> getAllByName(String name);
-
 }

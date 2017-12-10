@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface NoteRepository extends JpaRepository<Note, Long> {
+
     @Query("select n from Note n where n.id = ?1")
     Note getById(Long id);
 
