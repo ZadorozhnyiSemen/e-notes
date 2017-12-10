@@ -13,7 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -41,18 +42,20 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findByUserNameAndPassword() throws Exception {
+    public void testFindByUserNameAndPassword() throws Exception {
         User actual = userService.findByUserNameAndPassword("Semen", "semen@epam.com");
 
+        verify(userRepository, times(1)).findByUserNameAndPassword(anyString(), anyString());
         assertNotNull(actual);
         assertTrue("Semen".equals(actual.getUserName()));
         assertTrue("semen@epam.com".equals(actual.getEmail()));
     }
 
     @Test
-    public void getAll() throws Exception {
+    public void testGetAll() throws Exception {
         List<User> actualUserList = userService.getAll();
 
+        verify(userRepository, times(1)).getAll();
         assertEquals(3, actualUserList.size());
     }
 
