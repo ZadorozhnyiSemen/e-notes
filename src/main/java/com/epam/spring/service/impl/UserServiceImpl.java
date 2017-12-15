@@ -1,7 +1,8 @@
-package com.epam.spring.service;
+package com.epam.spring.service.impl;
 
 import com.epam.spring.dao.UserRepository;
 import com.epam.spring.model.User;
+import com.epam.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +21,5 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userRepository.getAll();
     }
+
 }

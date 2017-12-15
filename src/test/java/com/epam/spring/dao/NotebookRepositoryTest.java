@@ -41,31 +41,33 @@ public class NotebookRepositoryTest {
 
     @Test
     public void testGetById() throws Exception {
-
+        //when
         Notebook actual = notebookRepository.getById(expected.getId());
-
+        //then
         assertNotNull(actual);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testDeleteById() throws Exception {
-
+        //when
         notebookRepository.deleteById(expected.getId());
-
+        //then
         assertEquals(0, notebookRepository.count());
     }
 
     @Test
     public void testFindByName() throws Exception {
+        //given
         Notebook secondNotebook = new Notebook(notebookName, null);
-
         notebookRepository.save(secondNotebook);
 
+        //when
         List<Notebook> list = notebookRepository.findByName(notebookName);
+
+        //then
         assertEquals(2, list.size());
         assertEquals(notebookName, list.get(0).getName());
         assertEquals(notebookName, list.get(1).getName());
     }
-
 }

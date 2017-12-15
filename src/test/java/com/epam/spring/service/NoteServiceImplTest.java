@@ -2,6 +2,7 @@ package com.epam.spring.service;
 
 import com.epam.spring.dao.NoteRepository;
 import com.epam.spring.model.Note;
+import com.epam.spring.service.impl.NoteServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

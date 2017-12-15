@@ -2,6 +2,7 @@ package com.epam.spring.service;
 
 import com.epam.spring.dao.UserRepository;
 import com.epam.spring.model.User;
+import com.epam.spring.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

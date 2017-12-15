@@ -1,7 +1,8 @@
-package com.epam.spring.service;
+package com.epam.spring.service.impl;
 
 import com.epam.spring.dao.NotebookRepository;
 import com.epam.spring.model.Notebook;
+import com.epam.spring.service.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

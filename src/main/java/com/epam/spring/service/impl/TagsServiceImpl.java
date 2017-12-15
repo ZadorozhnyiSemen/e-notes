@@ -1,7 +1,8 @@
-package com.epam.spring.service;
+package com.epam.spring.service.impl;
 
 import com.epam.spring.dao.TagsRepository;
 import com.epam.spring.model.Tags;
+import com.epam.spring.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,5 @@ public class TagsServiceImpl implements TagsService {
     public List<Tags> findByName(String name) {
         return tagsRepository.getAllByName(name);
     }
+
 }

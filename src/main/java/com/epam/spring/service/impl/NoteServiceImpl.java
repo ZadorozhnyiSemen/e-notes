@@ -1,7 +1,8 @@
-package com.epam.spring.service;
+package com.epam.spring.service.impl;
 
 import com.epam.spring.dao.NoteRepository;
 import com.epam.spring.model.Note;
+import com.epam.spring.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,5 @@ public class NoteServiceImpl implements NoteService {
     public List<Note> findByName(String title) {
         return noteRepository.getAllByTitle(title);
     }
+
 }

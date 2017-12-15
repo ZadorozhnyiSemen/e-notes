@@ -2,6 +2,7 @@ package com.epam.spring.service;
 
 import com.epam.spring.dao.TagsRepository;
 import com.epam.spring.model.Tags;
+import com.epam.spring.service.impl.TagsServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
