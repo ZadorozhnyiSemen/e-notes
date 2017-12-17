@@ -14,8 +14,26 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Override
+    public List<Note> getAll() {
+        return noteRepository.findAll();
+    }
+
     public Note getById(Long id) {
         return noteRepository.getById(id);
+    }
+
+    @Override
+    public Note update(Note entity) {
+        Note note = noteRepository.getById(entity.getId());
+        note.setTitle(entity.getTitle());
+        note.setContent(entity.getContent());
+        return noteRepository.save(note);
+    }
+
+    @Override
+    public Note create(Note entity) {
+        return noteRepository.save(entity);
     }
 
     public void deleteById(Long id) {

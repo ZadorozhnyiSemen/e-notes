@@ -14,8 +14,25 @@ public class TagsServiceImpl implements TagsService {
     @Autowired
     private TagsRepository tagsRepository;
 
+    @Override
+    public List<Tags> getAll() {
+        return tagsRepository.findAll();
+    }
+
     public Tags getById(Long id) {
         return tagsRepository.getById(id);
+    }
+
+    @Override
+    public Tags update(Tags entity) {
+        Tags tag = tagsRepository.getById(entity.getId());
+        tag.setName(entity.getName());
+        return tagsRepository.save(tag);
+    }
+
+    @Override
+    public Tags create(Tags entity) {
+        return tagsRepository.save(entity);
     }
 
     public void deleteById(Long id) {

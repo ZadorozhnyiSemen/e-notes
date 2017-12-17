@@ -14,6 +14,21 @@ public class NotebookServiceImpl implements NotebookService {
     @Autowired
     private NotebookRepository notebookRepository;
 
+    public List<Notebook> getAll() {
+        return notebookRepository.findAll();
+    }
+
+    public Notebook update(Notebook updated) {
+        Notebook notebook = notebookRepository.getById(updated.getId());
+        notebook.setName(updated.getName());
+        return notebookRepository.save(notebook);
+    }
+
+    @Override
+    public Notebook create(Notebook entity) {
+        return notebookRepository.save(entity);
+    }
+
     public Notebook getById(Long id) {
         return notebookRepository.getById(id);
     }
