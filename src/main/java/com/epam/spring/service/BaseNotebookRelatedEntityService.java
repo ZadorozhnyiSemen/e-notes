@@ -2,7 +2,7 @@ package com.epam.spring.service;
 
 import java.util.List;
 
-public interface BasePaperEntityService<T> extends BaseEntityService<T> {
+public interface BaseNotebookRelatedEntityService<T> extends BaseEntityService<T> {
 
     List<T> getAll();
 

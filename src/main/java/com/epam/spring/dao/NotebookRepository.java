@@ -18,4 +18,8 @@ public interface NotebookRepository extends JpaRepository<Notebook, Long> {
 
     @Query("select n from Notebook n where n.name = ?1")
     List<Notebook> findByName(String name);
+
+    @Modifying
+    @Query("update Notebook n set n.name = ?1 where n.id = ?2")
+    Notebook update(String name, Long id);
 }

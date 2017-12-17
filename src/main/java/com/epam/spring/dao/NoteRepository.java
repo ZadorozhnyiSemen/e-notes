@@ -18,4 +18,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     @Query("select n from Note n where n.title = ?1")
     List<Note> getAllByTitle(String title);
+
+    @Modifying
+    @Query("update Note n set n.title = ?1, n.content = ?2 where n.id = ?3")
+    Note update(String title, String content, Long id);
 }

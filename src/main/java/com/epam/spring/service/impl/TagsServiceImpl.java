@@ -26,9 +26,8 @@ public class TagsServiceImpl implements TagsService {
 
     @Override
     public Tags update(Long id, Tags entity) {
-        Tags tag = tagsRepository.getById(id);
-        tag.setName(entity.getName());
-        return tagsRepository.save(tag);
+        Tags updated = tagsRepository.update(entity.getName(), id);
+        return updated;
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -14,12 +15,36 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findByUserNameAndPassword(String userName, String password) {
-        return userRepository.findByUserNameAndPassword(userName, password);
+    public List<User> findAllByUsername(String userName) {
+        List<User> users = userRepository.findByUserName(userName);
+        if (users.size() == 0) {
+            List<User> searchUsers = userRepository.findAll().stream()
+                    .filter(user -> user.getUserName().contains(userName))
+                    .collect(Collectors.toList());
+            return searchUsers;
+        } else {
+            return users;
+        }
     }
 
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
 
+    @Override
+    public User update(User user) {
+        User updated = userRepository.update(user.getUserName(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getId());
+        return updated;
+    }
+
+    public User delete(Long id) {
+        User updateUserActivity = userRepository.getById(id);
+        if (updateUserActivity.isActive()) {
+            userRepository.delete(id);
+        }
+        return updateUserActivity;
+    }
 }
