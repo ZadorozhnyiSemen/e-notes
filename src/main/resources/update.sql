@@ -1,0 +1,1 @@
+INSERT INTO Notebook (id, name) VALUES (1, 'notebook1')

@@ -25,7 +25,7 @@ public class TagController {
     @GetMapping(value = "/{tagId}")
     public ResponseEntity<Tags> getTagById(@PathVariable Long tagId) {
         Tags tags = tagsService.getById(tagId);
-        return new ResponseEntity<Tags>(tags, HttpStatus.OK);
+        return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
     @PostMapping(value = "/")
