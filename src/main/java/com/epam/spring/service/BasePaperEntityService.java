@@ -8,7 +8,7 @@ public interface BasePaperEntityService<T> extends BaseEntityService<T> {
 
     T getById(Long id);
 
-    T update(T entity);
+    T update(Long id, T entity);
 
     T create(T entity);
 
