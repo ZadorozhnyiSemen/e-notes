@@ -1,35 +1,53 @@
 package com.epam.spring.controller;
 
+import com.epam.spring.model.Notebook;
 import com.epam.spring.service.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping(value = "/notebooks")
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/api/notebooks")
 public class NotebookController {
 
-  @Autowired
-  private NotebookService notebookService;
+    @Autowired
+    private NotebookService notebookService;
 
-  @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-  public String getNotebook() {
-    return "user";
-  }
+    @GetMapping
+    public ResponseEntity<List<Notebook>> getNotebook(@RequestParam(value = "s", required = false) String s) {
+        if (s != null) {
+            List<Notebook> searchList = notebookService.findByName(s);
+            return new ResponseEntity<>(searchList, HttpStatus.OK);
+        } else {
+            List<Notebook> notebooks = notebookService.getAll();
+            return new ResponseEntity<>(notebooks, HttpStatus.OK);
+        }
+    }
 
-  @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
-  public String createNotebook() {
-    return "user";
-  }
+    @GetMapping(value = "/{notebookId}")
+    public ResponseEntity<Notebook> getNotebookById(@PathVariable Long notebookId) {
+        Notebook notebook = notebookService.getById(notebookId);
+        return new ResponseEntity<>(notebook, HttpStatus.OK);
+    }
 
-  @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.POST)
-  public String updateNotebook() {
-    return "user";
-  }
+    @PostMapping
+    public ResponseEntity<?> createNotebook(@RequestBody Notebook notebook) {
+        Notebook created = notebookService.create(notebook);
+        return new ResponseEntity<Object>(created, HttpStatus.OK);
+    }
 
-  @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.DELETE)
-  public String deleteNotebook() {
-    return "user";
-  }
+    @PostMapping(value = "/{notebookId}")
+    public ResponseEntity<?> updateNotebook(@RequestBody Notebook notebook, @PathVariable Long notebookId) {
+        Notebook updated = notebookService.update(notebookId, notebook);
+        return new ResponseEntity<Object>(updated, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{notebookId}")
+    public ResponseEntity<?> deleteNotebook(@PathVariable Long notebookId) {
+        notebookService.deleteById(notebookId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
