@@ -8,7 +8,7 @@ public interface BaseNotebookRelatedEntityService<T> extends BaseEntityService<T
 
     T getById(Long id);
 
-    T update(Long id, T entity);
+    int update(Long id, T entity);
 
     T create(T entity);
 

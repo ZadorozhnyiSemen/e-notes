@@ -2,7 +2,6 @@ package com.epam.spring.dao;
 
 import com.epam.spring.config.AppConfig;
 import com.epam.spring.model.Notebook;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,48 +25,42 @@ public class NotebookRepositoryTest {
     @Autowired
     private NotebookRepository notebookRepository;
 
-    private Notebook expected;
-
     @Before
     public void setUp() throws Exception {
-        Notebook notebook = new Notebook(notebookName, null);
-        expected = notebookRepository.save(notebook);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        notebookRepository.deleteAll();
+        // watch resources update.sql
     }
 
     @Test
     public void testGetById() throws Exception {
         //when
-        Notebook actual = notebookRepository.getById(expected.getId());
+        Notebook actual = notebookRepository.getById(1L);
         //then
         assertNotNull(actual);
-        assertEquals(expected, actual);
+        assertEquals("notebook1", actual.getName());
     }
 
     @Test
     public void testDeleteById() throws Exception {
         //when
-        notebookRepository.deleteById(expected.getId());
+        notebookRepository.deleteById(1L);
         //then
-        assertEquals(0, notebookRepository.count());
+        assertEquals(5, notebookRepository.count());
     }
 
     @Test
     public void testFindByName() throws Exception {
-        //given
-        Notebook secondNotebook = new Notebook(notebookName, null);
-        notebookRepository.save(secondNotebook);
-
         //when
-        List<Notebook> list = notebookRepository.findByName(notebookName);
+        List<Notebook> list = notebookRepository.findByName("test test");
 
         //then
-        assertEquals(2, list.size());
-        assertEquals(notebookName, list.get(0).getName());
-        assertEquals(notebookName, list.get(1).getName());
+        assertEquals(1, list.size());
+        assertEquals("test test", list.get(0).getName());
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = notebookRepository.update("my note", 3L);
+
+        assertEquals(1, actual);
     }
 }

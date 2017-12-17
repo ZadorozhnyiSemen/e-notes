@@ -37,6 +37,7 @@ public class TagsServiceImplTest {
         );
 
         when(tagsRepository.getById(anyLong())).thenReturn(mockedTag);
+        when(tagsRepository.update("name", 1L)).thenReturn(1);
         when(tagsRepository.getAllByName("tagname")).thenReturn(mockedTags);
     }
 
@@ -55,6 +56,14 @@ public class TagsServiceImplTest {
         verify(tagsRepository, times(1)).getAllByName(anyString());
         assertNotNull(actualList);
         assertEquals(2, actualList.size());
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = tagsService.update(1L, new Tags(null, "name"));
+
+        verify(tagsRepository, times(1)).update("name", 1L);
+        assertEquals(1, actual);
     }
 
 }

@@ -37,11 +37,12 @@ public class NoteServiceImplTest {
         );
 
         when(noteRepository.getById(anyLong())).thenReturn(mockedNote);
+        when(noteRepository.update("title", "content", 1L)).thenReturn(1);
         when(noteRepository.getAllByTitle("cool")).thenReturn(mockedNotesList);
     }
 
     @Test
-    public void getById() throws Exception {
+    public void testGetById() throws Exception {
         Note actual = noteService.getById(1L);
 
         verify(noteRepository, times(1)).getById(anyLong());
@@ -49,12 +50,20 @@ public class NoteServiceImplTest {
     }
 
     @Test
-    public void getAllByName() throws Exception {
+    public void testGetAllByName() throws Exception {
         List<Note> actualList = noteService.findByName("cool");
 
         verify(noteRepository, times(1)).getAllByTitle(anyString());
         assertNotNull(actualList);
         assertEquals(2, actualList.size());
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = noteService.update(1L, new Note("title", "content", null));
+
+        verify(noteRepository, times(1)).update("title", "content", 1L);
+        assertEquals(1, actual);
     }
 
 }

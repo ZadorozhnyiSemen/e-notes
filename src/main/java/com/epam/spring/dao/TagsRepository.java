@@ -21,5 +21,5 @@ public interface TagsRepository extends JpaRepository<Tags, Long> {
 
     @Modifying
     @Query("update Tags t set t.name = ?1 where t.id = ?2")
-    Tags update(String name, Long id);
+    int update(String name, Long id);
 }

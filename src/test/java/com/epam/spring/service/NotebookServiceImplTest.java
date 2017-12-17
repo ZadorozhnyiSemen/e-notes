@@ -37,6 +37,7 @@ public class NotebookServiceImplTest {
         );
 
         when(notebookRepository.getById(anyLong())).thenReturn(mockedNotebook);
+        when(notebookRepository.update("updated name", 2L)).thenReturn(1);
         when(notebookRepository.findByName("notebook1")).thenReturn(mockedNotebookList);
     }
 
@@ -55,6 +56,14 @@ public class NotebookServiceImplTest {
         verify(notebookRepository, times(1)).findByName(anyString());
         assertNotNull(actualList);
         assertEquals(2, actualList.size());
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = notebookService.update(2L, new Notebook("updated name", null));
+
+        verify(notebookRepository, times(1)).update("updated name", 2L);
+        assertEquals(1, actual);
     }
 
 }

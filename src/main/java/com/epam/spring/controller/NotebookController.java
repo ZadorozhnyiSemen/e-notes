@@ -41,8 +41,8 @@ public class NotebookController {
 
     @PostMapping(value = "/{notebookId}")
     public ResponseEntity<?> updateNotebook(@RequestBody Notebook notebook, @PathVariable Long notebookId) {
-        Notebook updated = notebookService.update(notebookId, notebook);
-        return new ResponseEntity<Object>(updated, HttpStatus.OK);
+        int updated = notebookService.update(notebookId, notebook);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{notebookId}")

@@ -2,7 +2,7 @@ package com.epam.spring.dao;
 
 import com.epam.spring.config.AppConfig;
 import com.epam.spring.model.Tags;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -23,47 +24,38 @@ public class TagsRepositoryTest {
     @Autowired
     TagsRepository tagsRepository;
 
-    @After
-    public void tearDown() throws Exception {
-        tagsRepository.deleteAll();
+    @Before
+    public void setUp() throws Exception {
+        // watch resources update.sql
     }
 
     @Test
-    public void testCreateTag() throws Exception {
-        Tags tags = new Tags(null, tagName);
+    public void testGetById() throws Exception {
+        Tags actual = tagsRepository.getById(1L);
 
-        Tags expected = tagsRepository.save(tags);
-
-        Tags actual = tagsRepository.getById(expected.getId());
-
-        assertEquals(tags, actual);
+        assertNotNull(actual);
+        assertEquals("dummy tag", actual.getName());
     }
 
     @Test
     public void testDeleteTag() throws Exception {
-        Tags tags = new Tags(null, tagName);
+        tagsRepository.deleteById(1L);
 
-        Tags expected = tagsRepository.save(tags);
-
-        tagsRepository.deleteById(expected.getId());
-
-        assertEquals(0, tagsRepository.count());
+        assertEquals(4, tagsRepository.count());
     }
 
     @Test
-    //TODO involve user_id (future stages)
     public void testGetTagByName() throws Exception {
-        String tagName = this.tagName;
-        Tags firstTag = new Tags(null, tagName);
-        Tags secondTag = new Tags(null, tagName);
+        List<Tags> actual = tagsRepository.getAllByName("NB");
 
-        tagsRepository.save(firstTag);
-        tagsRepository.save(secondTag);
+        assertEquals(1, actual.size());
+        assertEquals("NB", actual.get(0).getName());
+    }
 
-        List<Tags> actual = tagsRepository.getAllByName(tagName);
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = tagsRepository.update("new name", 2L);
 
-        assertEquals(2, actual.size());
-        assertEquals(tagName, actual.get(0).getName());
-        assertEquals(tagName, actual.get(1).getName());
+        assertEquals(1, actual);
     }
 }

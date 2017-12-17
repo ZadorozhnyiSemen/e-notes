@@ -2,7 +2,6 @@ package com.epam.spring.dao;
 
 import com.epam.spring.config.AppConfig;
 import com.epam.spring.model.Note;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,50 +20,44 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration(classes = AppConfig.class)
 public class NoteRepositoryTest {
 
-    private final String noteTitle = "Some title";
-    private final String noteContent = "Remember to do everything";
-
     @Autowired
     private NoteRepository noteRepository;
 
-    private Note expected;
-
     @Before
     public void setUp() throws Exception {
-        Note note = new Note(noteTitle, noteContent, null);
-        expected = noteRepository.save(note);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        noteRepository.deleteAll();
+        // watch resources/update.sql
     }
 
     @Test
     public void getById() throws Exception {
-        Note actual = noteRepository.getById(expected.getId());
+        Note actual = noteRepository.getById(1L);
 
         assertNotNull(actual);
-        assertEquals(expected, actual);
+        assertEquals("awesome title", actual.getTitle());
+        assertEquals("incredible content", actual.getContent());
     }
 
     @Test
     public void testDeleteById() throws Exception {
-        noteRepository.deleteById(expected.getId());
+        noteRepository.deleteById(1L);
 
-        assertEquals(0, noteRepository.count());
+        assertEquals(1, noteRepository.count());
     }
 
     @Test
-    public void getAllByName() throws Exception {
-        Note secondNote = new Note(noteTitle, noteContent, null);
-        noteRepository.save(secondNote);
+    public void testGetAllByTitle() throws Exception {
+        List<Note> list = noteRepository.getAllByTitle("awesome title 2");
 
-        List<Note> list = noteRepository.getAllByTitle(noteTitle);
+        assertEquals(1, list.size());
+        assertEquals("awesome title 2", list.get(0).getTitle());
+        assertEquals("incredible content 2", list.get(0).getContent());
+    }
 
-        assertEquals(2, list.size());
-        assertEquals(noteTitle, list.get(0).getTitle());
-        assertEquals(noteContent, list.get(1).getContent());
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = noteRepository.update("some new title", "bla bla", 2L);
+
+        assertEquals(1, actual);
     }
 
 }

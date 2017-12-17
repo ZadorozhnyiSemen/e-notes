@@ -21,5 +21,5 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     @Modifying
     @Query("update Note n set n.title = ?1, n.content = ?2 where n.id = ?3")
-    Note update(String title, String content, Long id);
+    int update(String title, String content, Long id);
 }

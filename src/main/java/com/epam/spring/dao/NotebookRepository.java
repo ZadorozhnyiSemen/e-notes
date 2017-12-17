@@ -21,5 +21,5 @@ public interface NotebookRepository extends JpaRepository<Notebook, Long> {
 
     @Modifying
     @Query("update Notebook n set n.name = ?1 where n.id = ?2")
-    Notebook update(String name, Long id);
+    int update(String name, Long id);
 }

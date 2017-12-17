@@ -1,9 +1,7 @@
 package com.epam.spring.dao;
 
 import com.epam.spring.config.AppConfig;
-import com.epam.spring.model.Tags;
 import com.epam.spring.model.User;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,11 +10,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -28,46 +25,40 @@ public class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
-    private User expected;
-    private Tags tag;
-
     @Before
     public void setUp() throws Exception {
-        List<Tags> tags = new ArrayList<>();
-        User user = new User("Andrey", "andrey@epam.com", "qwerty", true);
-        tag = new Tags(user, TAG_NAME);
-        tags.add(tag);
-        user.setTags(tags);
-        expected = userRepository.save(user);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        userRepository.deleteAll();
+        // watch resources/update.sql
     }
 
     @Test
-    public void testFindUserByUsernameAndPasswordGetsUser() throws Exception {
-        User actual = userRepository.findByUserNameAndPassword("Andrey", "qwerty");
-        assertEquals(expected, actual);
-        assertTrue("User don't have tag", !expected.getTags().isEmpty());
-        assertTrue(expected.getTags().get(0).getName().equals(TAG_NAME));
+    public void testFindUserByUsername() throws Exception {
+        List<User> actual = userRepository.findByUserName("Semen");
+        assertEquals(1, actual.size());
+        assertEquals("Semen", actual.get(0).getUserName());
     }
 
     @Test
-    public void testRepoSavesUser() throws Exception {
-        assertEquals(1, userRepository.count());
+    public void testGetById() throws Exception {
+        User actual = userRepository.getById(1L);
+
+        assertNotNull(actual);
+        assertEquals("Semen", actual.getUserName());
+        assertEquals("semen@epam.com", actual.getEmail());
     }
 
     @Test
-    public void testGetAll() throws Exception {
-        User user = new User("Semen", "semen@epam.com", "qwerty", true);
-        userRepository.save(user);
+    public void testUpdate() throws Exception {
+        int actual = userRepository.update("Andrey", "qwe", "mail", 1L);
 
-        List<User> actual = userRepository.getAll();
+        assertEquals(1, actual);
+    }
 
-        assertEquals(2, actual.size());
-        assertEquals("Andrey", actual.get(0).getUserName());
-        assertEquals("Semen", actual.get(1).getUserName());
+    @Test
+    public void testDelete() throws Exception {
+        userRepository.delete(1L);
+        User actual = userRepository.getById(1L);
+
+        assertNotNull(actual);
+        assertEquals(false, actual.isActive());
     }
 }

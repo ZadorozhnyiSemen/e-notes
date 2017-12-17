@@ -25,9 +25,8 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note update(Long id, Note entity) {
-        Note updated = noteRepository.update(entity.getTitle(), entity.getContent(), id);
-        return updated;
+    public int update(Long id, Note entity) {
+        return noteRepository.update(entity.getTitle(), entity.getContent(), id);
     }
 
     @Override

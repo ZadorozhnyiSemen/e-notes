@@ -41,8 +41,8 @@ public class TagController {
 
     @PostMapping(value = "/{tagId}")
     public ResponseEntity<Tags> update(@RequestBody Tags tag, @PathVariable Long tagId) {
-        Tags updated = tagsService.update(tagId, tag);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        int updated = tagsService.update(tagId, tag);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{tagId}")

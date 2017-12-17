@@ -41,8 +41,8 @@ public class NoteController {
 
     @PostMapping(value = "/{noteId}")
     public ResponseEntity<Note> updateNote(@RequestBody Note note, @PathVariable Long noteId) {
-        Note updated = noteService.update(noteId, note);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        int updated = noteService.update(noteId, note);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/")

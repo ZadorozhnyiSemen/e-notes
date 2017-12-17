@@ -16,10 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User getById(Long id);
 
     @Modifying
-    @Query("update User u set u.active = false where u.id = ?1")
+    @Query("update User u set u.isActive = false where u.id = ?1")
     void delete(Long id);
 
     @Modifying
     @Query("update User u set u.userName = ?1, u.password = ?2, u.email = ?3 where u.id = ?4")
-    User update(String userName, String password, String email, Long id);
+    int update(String userName, String password, String email, Long id);
 }

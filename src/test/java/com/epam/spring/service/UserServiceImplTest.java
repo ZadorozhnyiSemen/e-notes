@@ -4,6 +4,7 @@ import com.epam.spring.dao.UserRepository;
 import com.epam.spring.model.User;
 import com.epam.spring.service.impl.UserServiceImpl;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -34,30 +35,41 @@ public class UserServiceImplTest {
                 new User("user3", "user3@epam.com", "qwerty", true)
         );
 
-        User mockedUser = new User("Semen", "semen@epam.com", "qwerty", true);
+        List<User> mockedUser = Arrays.asList(new User("Semen", "semen@epam.com", "qwerty", true));
 
 
-        when(userRepository.getAll()).thenReturn(mockedUserList);
-        when(userRepository.findByUserNameAndPassword("Semen", "semen@epam.com"))
+        when(userRepository.findAll()).thenReturn(mockedUserList);
+        when(userRepository.update("userName", "pass", "email", 1L)).thenReturn(1);
+        when(userRepository.findByUserName("Semen"))
                 .thenReturn(mockedUser);
     }
 
     @Test
-    public void testFindByUserNameAndPassword() throws Exception {
-        User actual = userService.findByUserNameAndPassword("Semen", "semen@epam.com");
+    public void testFindByUserName() throws Exception {
+        List<User> actual = userService.findAllByUsername("Semen");
 
-        verify(userRepository, times(1)).findByUserNameAndPassword(anyString(), anyString());
+        verify(userRepository, times(1)).findByUserName(anyString());
         assertNotNull(actual);
-        assertTrue("Semen".equals(actual.getUserName()));
-        assertTrue("semen@epam.com".equals(actual.getEmail()));
+        assertTrue("Semen".equals(actual.get(0).getUserName()));
+        assertTrue("semen@epam.com".equals(actual.get(0).getEmail()));
     }
 
     @Test
     public void testGetAll() throws Exception {
         List<User> actualUserList = userService.getAll();
 
-        verify(userRepository, times(1)).getAll();
+        verify(userRepository, times(1)).findAll();
         assertEquals(3, actualUserList.size());
+    }
+
+    //TODO change ID passing
+    @Ignore
+    @Test
+    public void testUpdate() throws Exception {
+        int actual = userService.update(new User("userName", "email", "pass", true));
+
+        verify(userRepository, times(1)).update("userName", "pass", "email", 1L);
+        assertEquals(1, actual);
     }
 
 }

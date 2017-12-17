@@ -19,9 +19,8 @@ public class NotebookServiceImpl implements NotebookService {
         return notebookRepository.findAll();
     }
 
-    public Notebook update(Long id, Notebook notebook) {
-        Notebook updated = notebookRepository.update(notebook.getName(), id);
-        return updated;
+    public int update(Long id, Notebook notebook) {
+        return notebookRepository.update(notebook.getName(), id);
     }
 
     @Override

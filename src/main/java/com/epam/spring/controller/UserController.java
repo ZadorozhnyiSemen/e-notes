@@ -35,7 +35,7 @@ public class UserController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        User updated = userService.update(user);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        int updated = userService.update(user);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
