@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NotebookServiceImpl implements NotebookService {
@@ -38,6 +39,13 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     public List<Notebook> findByName(String name) {
-        return notebookRepository.findByName(name);
+        List<Notebook> byName = notebookRepository.findByName(name);
+        if (byName.size() == 0) {
+            List<Notebook> searchList = notebookRepository.findAll();
+            return searchList.stream()
+                    .filter(notebook -> notebook.getName().contains(name))
+                    .collect(Collectors.toList());
+        }
+        return byName;
     }
 }

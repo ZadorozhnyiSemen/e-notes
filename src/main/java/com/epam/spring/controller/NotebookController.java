@@ -16,10 +16,15 @@ public class NotebookController {
     @Autowired
     private NotebookService notebookService;
 
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Notebook>> getNotebook() {
-        List<Notebook> notebooks = notebookService.getAll();
-        return new ResponseEntity<>(notebooks, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Notebook>> getNotebook(@RequestParam(value = "s", required = false) String s) {
+        if (s != null) {
+            List<Notebook> searchList = notebookService.findByName(s);
+            return new ResponseEntity<>(searchList, HttpStatus.OK);
+        } else {
+            List<Notebook> notebooks = notebookService.getAll();
+            return new ResponseEntity<>(notebooks, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/{notebookId}")
@@ -28,7 +33,7 @@ public class NotebookController {
         return new ResponseEntity<>(notebook, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping
     public ResponseEntity<?> createNotebook(@RequestBody Notebook notebook) {
         Notebook created = notebookService.create(notebook);
         return new ResponseEntity<Object>(created, HttpStatus.OK);

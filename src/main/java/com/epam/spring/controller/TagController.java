@@ -16,10 +16,15 @@ public class TagController {
     @Autowired
     private TagsService tagsService;
 
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Tags>> getAllTags() {
-        List<Tags> allTags = tagsService.getAll();
-        return new ResponseEntity<>(allTags, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Tags>> getAllTags(@PathVariable(value = "s", required = false) String s) {
+        if (s != null) {
+            List<Tags> searchTags = tagsService.findByName(s);
+            return new ResponseEntity<>(searchTags, HttpStatus.OK);
+        } else {
+            List<Tags> allTags = tagsService.getAll();
+            return new ResponseEntity<>(allTags, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/{tagId}")
@@ -28,7 +33,7 @@ public class TagController {
         return new ResponseEntity<>(tags, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/")
+    @PostMapping
     public ResponseEntity<Tags> create(@RequestBody Tags tag) {
         Tags created = tagsService.create(tag);
         return new ResponseEntity<>(created, HttpStatus.OK);

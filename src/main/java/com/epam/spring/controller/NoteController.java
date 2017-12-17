@@ -16,10 +16,15 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Note>> getNotes() {
-        List<Note> noteList = noteService.getAll();
-        return new ResponseEntity<>(noteList, HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<List<Note>> getNotes(@RequestParam(name = "s", required = false) String s) {
+        if (s != null) {
+            List<Note> searchList = noteService.findByName(s);
+            return new ResponseEntity<>(searchList, HttpStatus.OK);
+        } else {
+            List<Note> noteList = noteService.getAll();
+            return new ResponseEntity<>(noteList, HttpStatus.OK);
+        }
     }
 
     @GetMapping(value = "/{noteId}")

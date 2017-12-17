@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -41,7 +42,15 @@ public class NoteServiceImpl implements NoteService {
     }
 
     public List<Note> findByName(String title) {
-        return noteRepository.getAllByTitle(title);
+        List<Note> byTitle = noteRepository.getAllByTitle(title);
+        if (byTitle.size() == 0) {
+            List<Note> searchList = noteRepository.findAll();
+            return searchList.stream()
+                    .filter(note -> note.getTitle().contains(title))
+                    .collect(Collectors.toList());
+        } else {
+            return byTitle;
+        }
     }
 
 }
