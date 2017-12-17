@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "api/notes")
+@RequestMapping(value = "/api/notes")
 public class NoteController {
 
     @Autowired
