@@ -10,7 +10,7 @@ public interface UserService extends BaseEntityService<User> {
 
     List<User> getAll();
 
-    int update(User user);
+    int update(Long id, User user);
 
     User delete(Long id);
 }
