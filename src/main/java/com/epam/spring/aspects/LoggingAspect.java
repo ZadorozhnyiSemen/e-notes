@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Aspect;
 import java.util.Arrays;
 
 @Aspect
-public class MethodLogger {
+public class LoggingAspect {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 

@@ -1,6 +1,6 @@
 package com.epam.spring.config;
 
-import com.epam.spring.aspects.MethodLogger;
+import com.epam.spring.aspects.LoggingAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AspectConfig {
 
     @Bean
-    public MethodLogger methodLogger() {
-        return new MethodLogger();
+    public LoggingAspect methodLogger() {
+        return new LoggingAspect();
     }
 }
