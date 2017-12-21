@@ -59,11 +59,12 @@ public class NoteControllerTest {
     String url = "/api/notes/1";
     int expectedSize = 1;
 
-    // when then
-    mockMvc.perform(delete(url))
-           .andExpect(status().isOk());
+    // when
+    mockMvc.perform(delete(url));
     int actualSize = noteService.getAll()
                                 .size();
+
+    //then
     assertThat(actualSize, is(expectedSize));
   }
 }
