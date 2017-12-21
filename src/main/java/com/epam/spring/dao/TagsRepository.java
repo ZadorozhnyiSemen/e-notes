@@ -4,6 +4,7 @@ import com.epam.spring.model.Tags;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public interface TagsRepository extends JpaRepository<Tags, Long> {
     Tags getById(Long id);
 
     @Modifying
+    @Transactional
     @Query("delete from Tags as t where t.id = ?1")
     void deleteById(Long id);
 
