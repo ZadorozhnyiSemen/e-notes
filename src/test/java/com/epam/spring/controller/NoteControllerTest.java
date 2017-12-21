@@ -1,6 +1,7 @@
 package com.epam.spring.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -66,5 +67,17 @@ public class NoteControllerTest {
 
     //then
     assertThat(actualSize, is(expectedSize));
+  }
+
+  @Test
+  public void getNotes_should_return_2_notes() throws Exception {
+    /// given
+    String url = "/api/notes";
+    int expectedSize = 2;
+
+    // when then
+    mockMvc.perform(get(url))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", hasSize(expectedSize)));
   }
 }
