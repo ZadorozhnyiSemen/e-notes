@@ -1,6 +1,7 @@
 package com.epam.spring.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -9,10 +10,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epam.spring.service.TagsService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -40,8 +43,20 @@ public class TagControllerTest {
                              .build();
   }
 
+  @Ignore
   @Test
-  public void getAllTags() {
+  public void getAllTags_should_return_5_and_cats() throws Exception {
+
+    String url = "/api/tags/";
+    String expectedName = "cats";
+    int expectedSize = 5;
+
+    //when
+    mockMvc.perform(get(url)
+        .contentType(MediaType.APPLICATION_JSON))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$", hasSize(expectedSize)))
+           .andExpect(jsonPath("$[0].name", is(expectedName)));
   }
 
   @Test
@@ -57,10 +72,12 @@ public class TagControllerTest {
            .andExpect(jsonPath("$.name", is(expectedTitle)));
   }
 
+  @Ignore
   @Test
   public void create() {
   }
 
+  @Ignore
   @Test
   public void update() {
   }
