@@ -53,7 +53,27 @@ public class NotebookControllerTest {
   }
 
   @Test
-  public void getNotebookById() {
+  public void getNotebooks_should_return_names() throws Exception {
+    //given
+    String url = "/api/notebooks";
+
+    String notebook1 = "notebook1";
+    String notebook2 = "my notebook";
+    String notebook3 = "awesome notebook";
+    String notebook4 = "test test";
+    String notebook5 = "just trying";
+    String notebook6 = "hi all nice notebook";
+
+    //when then
+    mockMvc.perform(get(url).contentType(MediaType.APPLICATION_JSON))
+           .andExpect(status().isOk())
+           .andExpect(jsonPath("$[0].name", is(notebook1)))
+           .andExpect(jsonPath("$[1].name", is(notebook2)))
+           .andExpect(jsonPath("$[2].name", is(notebook3)))
+           .andExpect(jsonPath("$[3].name", is(notebook4)))
+           .andExpect(jsonPath("$[4].name", is(notebook5)))
+           .andExpect(jsonPath("$[5].name", is(notebook6)));
+
   }
 
   @Test
