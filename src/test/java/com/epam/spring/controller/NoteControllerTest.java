@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.epam.spring.service.NoteService;
 import java.nio.charset.Charset;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,7 @@ public class NoteControllerTest {
     assertThat(actualSize, is(expectedSize));
   }
 
+  @Ignore
   @Test
   public void createNote_should_create_1_note() throws Exception {
     // given
